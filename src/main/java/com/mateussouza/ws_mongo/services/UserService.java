@@ -30,8 +30,13 @@ public class UserService {
 	}
 	
 	public void delete(String id) {
-		findById(id);
-		repo.deleteById(id);
+		User user = findById(id);
+		if (user != null) {
+			repo.delete(user);
+		} else {
+			throw new RuntimeException("Usário com ID " + id + "não encontrado");
+		}
+		
 	}
 	
 	public User update(User obj) {
